@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--构造器实例化-->
+    <bean id="calendar1" class="java.util.GregorianCalendar"></bean>
+
+    <!--通过静态工厂实例化-->
+    <bean id="calendar2" class="java.util.Calendar" factory-method="getInstance"></bean>
+
+    <!--实例工厂方法-->
+    <bean id="calendar3" factory-bean="calendar1" factory-method="getTime" ></bean>
+
+    <!--使用bean的别名-->
+    <alias name="calendar3" alias="calendar4"></alias>
+
+    <!--使用构造器注入-->
+    <bean id="user1" class="com.mvc.cn.entity.User" lazy-init="true" init-method="init_method" destroy-method="destroy_method">
+        <constructor-arg index="0" value="zhangsan"></constructor-arg>
+        <constructor-arg index="1" value="24"></constructor-arg>
+        <constructor-arg index="2" value="m"></constructor-arg>
+        <constructor-arg index="3" value="175"></constructor-arg>
+        <constructor-arg index="4" value="135"></constructor-arg>
+    </bean>
+
+    <!--使用setter方法注入-->
+    <bean id="user2" class="com.mvc.cn.entity.User" init-method="init_method" destroy-method="destroy_method">
+        <property name="name" value="lisi"></property>
+        <property name="age" value="23"></property>
+        <property name="height" value="167"></property>
+        <property name="sex" value="w"></property>
+        <property name="weight" value="100"></property>
+    </bean>
+
+    <!--自动装配-->
+    <bean id="user_byType" class="com.mvc.cn.entity.User" autowire="byType"></bean>
+
+    <bean id="company" class="com.mvc.cn.entity.Company">
+        <constructor-arg index="0"><value>test</value></constructor-arg>
+        <constructor-arg index="1" ref="user1"></constructor-arg>
+        <constructor-arg index="2" value="5"></constructor-arg>
+        <!--<property name="name"><value>test</value></property>-->
+        <!--<property name="age"><value>23</value></property>-->
+        <!--<property name="user" ref="user1"></property>-->
+    </bean>
+
+    <!--配置文件-->
+    <util:properties id="jdbc_properties" location="classpath:resource/jdbc.properties"></util:properties>
+
+    <bean id="jdbc" class="com.mvc.cn.entity.JDBC">
+        <property name="identify" value="#{jdbc_properties.identify}"/>
+        <property name="ip" value="#{jdbc_properties.ip}"/>
+        <property name="username" value="#{jdbc_properties.name}"/>
+        <property name="password" value="#{jdbc_properties.password}"/>
+        <property name="maxConnect" value="#{jdbc_properties.max_connect}"/>
+    </bean>
+
+    <util:map id="testMap">
+        <entry key="name" value="zhangsan"></entry>
+        <entry key="age" value="25"></entry>
+    </util:map>
+
+    <bean id="propertiesReadAndWrite" class="com.mvc.cn.util.PropertiesReadAndWrite"></bean>
+
+
+</beans>
