@@ -61,7 +61,10 @@
         <entry key="age" value="25"></entry>
     </util:map>
 
-    <bean id="propertiesReadAndWrite" class="com.mvc.cn.util.PropertiesReadAndWrite"></bean>
 
+
+    <!--<bean class="">-->
+
+    <!--</bean>-->
 
 </beans>
