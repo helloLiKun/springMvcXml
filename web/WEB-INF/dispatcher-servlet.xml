@@ -7,8 +7,6 @@
 
     <context:component-scan base-package="com.mvc.cn"/>
 
-    <bean id="propertiesReadAndWrite" class="com.mvc.cn.util.PropertiesReadAndWrite"></bean>
-
     <bean id="helloController" class="com.mvc.cn.controller.HelloController"></bean>
 
     <!--SimpleUrlHandlerMapping內部HashMap维护Mapping-->
